@@ -39,7 +39,9 @@ function loadData() {
               '<p>' + article.snippet + '</p>'+
             '</li>');
         };
-  })
+  }).error(function(e){
+      $nytHeaderElem.text('NYT Articles could not be loaded');
+  });
 }
 
 $('#form-container').submit(loadData);
