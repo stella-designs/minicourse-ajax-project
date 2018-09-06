@@ -18,7 +18,7 @@ function loadData() {
 
     $greeting.text('Live at' + address + '.')
 
-    var streetviewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' +address + '';
+    var streetviewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + address + '';
     $body.append('<img class="bgimg" src= "' + streetviewUrl + '" >');
 
     return false;
@@ -48,7 +48,7 @@ function loadData() {
   Var wikiRequestTimeout = setTimeout(function(){
       $wikiElem.text("failed to get wikipedia resources");
   }, 8000);
-  
+
   $.ajax({
       url: wikiURL,
       dataType: "jsonp",
@@ -64,6 +64,7 @@ function loadData() {
           clearTimeout(wikiRequestTimeout);
        }
   });
+  
 }
 
 $('#form-container').submit(loadData);
