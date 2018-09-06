@@ -1,4 +1,3 @@
-
 function loadData() {
 
     var $body = $('body');
@@ -39,31 +38,31 @@ function loadData() {
               '<p>' + article.snippet + '</p>'+
             '</li>');
         };
-  }).error(function(e){
-      $nytHeaderElem.text('NYT Articles could not be loaded');
-  });
+      }).error(function(e){
+        $nytHeaderElem.text('NYT Articles could not be loaded');
+    });
 
-  // Wikipedia AJAX request goes here
-  var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=jason&callback=wikiCallback';
-  var wikiRequestTimeout = setTimeout(function(){
-      $wikiElem.text("failed to get wikipedia resources");
-  }, 8000);
+    // Wikipedia AJAX request goes here
+    var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=jason&callback=wikiCallback';
+    var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text("failed to get wikipedia resources");
+    }, 8000);
 
-  $.ajax({
-      url: wikiURL,
-      dataType: "jsonp",
-      success: function(response) {
-          var articleList = response[1];
+    $.ajax({
+        url: wikiURL,
+        dataType: "jsonp",
+        success: function(response) {
+            var articleList = response[1];
 
-          for(var i = 0; i < articleList.length; i++) {
-              articleStr = articleList[i];
-              var url = 'https://en.wikipedia.org/wiki/' + articleStr;
-              $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
-          };
+            for(var i = 0; i < articleList.length; i++) {
+                articleStr = articleList[i];
+                var url = 'https://en.wikipedia.org/wiki/' + articleStr;
+                $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
+            };
 
-          clearTimeout(wikiRequestTimeout);
-       }
-  });
+            clearTimeout(wikiRequestTimeout);
+         }
+    });
   
 }
 
