@@ -43,23 +43,22 @@ function loadData() {
       $nytHeaderElem.text('NYT Articles could not be loaded');
   });
 
-  var wikiURL = 'https://www.mediawiki.org/w/api.php'
+  // Wikipedia AJAX request goes here
+  var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=jason&callback=wikiCallback';
 
   $.ajax({
-    accepts: {
-      mycustomtype: 'application/x-some-custom-type'
-    },
-   
-    // Instructions for how to deserialize a `mycustomtype`
-    converters: {
-      'text mycustomtype': function(result) {
-        // Do Stuff
-        return newresult;
-      }
-    },
-   
-    // Expect a `mycustomtype` back from server
-    dataType: 'mycustomtype'
+      url: wikiURL,
+      dataType: "jsonp",
+      success: function(response) {
+          var articleList = response[1];
+
+          for(var i = 0; i < articleList.length; i++) {
+              articleStr = articleList[i];
+              var url = 'https://en.wikipedia.org/wiki/' + articleStr;
+              $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
+          };
+          
+       }
   });
 }
 
